@@ -1,13 +1,10 @@
 import React from 'react'
-import { StyleSheet, Text, View, Image } from 'react-native'
+import { StyleSheet, View, Image } from 'react-native'
 
 const Barbell = () => {
   return (
     <View style={styles.barbellContainer}>
-        <Image
-            style={styles.tinyLogo}
-            source={require('../../assets/barbell.png')}
-        />
+        <Image style={styles.barbell} source={require('../../assets/barbell.png')} />
     </View>
   )
 }
@@ -15,12 +12,11 @@ const Barbell = () => {
 export default Barbell
 
 const styles = StyleSheet.create({
-    tinyLogo: {
-        width: '90%',
+    barbell: {
+        width: '95%',
         height: 50,
     },
     barbellContainer: {
-        backgroundColor: 'red',
         width: '100%',
         height: '100%',
         alignItems: 'flex-end',
