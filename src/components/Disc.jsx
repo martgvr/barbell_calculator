@@ -13,8 +13,12 @@ const Disc = ({ weight }) => {
     })
 
     useEffect(() => {
-        if (weight == '25') { setPicture(require("../../assets/25kg.png")) }
-        if (weight == '20') { setPicture(require("../../assets/20kg.png")) }
+        if (weight == '25') { 
+            setPicture(require("../../assets/25kg.png"))
+        }
+        if (weight == '20') { 
+            setPicture(require("../../assets/20kg.png")) 
+        }
         if (weight == '15') {
             setPicture(require("../../assets/15kg.png"))
             setDiscHeight(500)
