@@ -9,11 +9,21 @@ const MenuContainer = () => {
 		console.log('Peso: ', weight);
 	}
 
+	const clearBarHandler = () => {
+		console.log('Vaciar barra');
+	}
+
 	return (
 		<View style={styles.container}>
 			<View style={styles.leftSide}>
 				<View style={styles.leftSideTop}>
-					<FontAwesome name="gear" size={34} color="white" />
+					<View style={styles.leftSideTopContainer}>
+						<FontAwesome name="gear" size={34} color="white" />
+
+						<TouchableOpacity style={styles.clearBarButton} onPress={clearBarHandler}>
+							<Text>Vaciar barra</Text>
+						</TouchableOpacity>
+					</View>
 				</View>
 				<View style={styles.leftSideBottom}>
 					<Text style={styles.totalText}>Total: ... Kg</Text>
@@ -54,7 +64,12 @@ const styles = StyleSheet.create({
 		display: "flex",
 		flexDirection: "row",
 	},
-
+	leftSideTopContainer: {
+		flexDirection: 'row',
+		height: 35,
+		alignItems: 'center',
+		gap: 20
+	},
     weightButtonText: {
         color: 'white',
         fontSize: 20
@@ -69,13 +84,21 @@ const styles = StyleSheet.create({
 	leftSideTop: {
 		flex: 1,
 		padding: 10,
+		flexDirection: 'row',
 	},
 	leftSideBottom: {
 		flex: 1,
 		padding: 10,
 		justifyContent: "flex-end",
 	},
-
+	clearBarButton: {
+		backgroundColor: '#ddd',
+		height: '100%',
+		alignItems: 'center',
+		paddingHorizontal: 12,
+		justifyContent: 'center',
+		borderRadius: 12
+	},
 	totalText: {
 		color: "white",
 		fontSize: 20,
