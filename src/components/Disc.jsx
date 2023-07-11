@@ -2,48 +2,47 @@ import React, { useState, useEffect } from "react"
 import { StyleSheet, View, Image } from "react-native"
 
 const Disc = ({ weight }) => {
-    const [discHeight, setDiscHeight] = useState(550)
-    const [picture, setPicture] = useState()
-    
-    const styles = StyleSheet.create({
-        disc: {
-            width: 15,
-            height: discHeight,
-        },
-    })
+	const [discState, setDiscState] = useState({ height: 550, picture: null })
 
-    useEffect(() => {
-        if (weight == 25) { 
-            setPicture(require("../../assets/25kg.png"))
-        }
-        if (weight == 20) { 
-            setPicture(require("../../assets/20kg.png")) 
-        }
-        if (weight == 15) {
-            setPicture(require("../../assets/15kg.png"))
-            setDiscHeight(500)
-        }
-        if (weight == 10) { 
-            setPicture(require("../../assets/10kg.png")) 
-            setDiscHeight(400)
-        }
-        if (weight == 5) { 
-            setPicture(require("../../assets/5kg.png")) 
-            setDiscHeight(300)
-        }
-        if (weight == 2.5) { 
-            setPicture(require("../../assets/2-5kg.png")) 
-            setDiscHeight(200)
-        }
-        if (weight == 1.25) { 
-            setPicture(require("../../assets/1-25kg.png")) 
-            setDiscHeight(150)
-        }
-    }, [])
+	useEffect(() => {
+		let picture = null
+		let discHeight = 550
+
+		if (weight === 25) {
+			picture = require("../../assets/25kg.png")
+		} else if (weight === 20) {
+			picture = require("../../assets/20kg.png")
+		} else if (weight === 15) {
+			picture = require("../../assets/15kg.png")
+			discHeight = 500
+		} else if (weight === 10) {
+			picture = require("../../assets/10kg.png")
+			discHeight = 400
+		} else if (weight === 5) {
+			picture = require("../../assets/5kg.png")
+			discHeight = 300
+		} else if (weight === 2.5) {
+			picture = require("../../assets/2-5kg.png")
+			discHeight = 200
+		} else if (weight === 1.25) {
+			picture = require("../../assets/1-25kg.png")
+			discHeight = 150
+		}
+
+		setDiscState({ height: discHeight, picture: picture })
+	}, [weight])
+
+	const styles = StyleSheet.create({
+		disc: {
+			width: 15,
+            resizeMode: 'contain',
+			height: discState.height,
+		},
+	})
 
 	return (
 		<View>
-			<Image style={styles.disc} source={picture} resizeMode='cover' />
+			<Image style={styles.disc} source={discState.picture} />
 		</View>
 	)
 }

@@ -1,40 +1,43 @@
 import { FontAwesome } from "@expo/vector-icons"
+import { useDispatch, useSelector } from "react-redux"
+import { addWeight, removeWeight, clearBar } from "../store/weightsListSlice"
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native"
+import { useEffect, useState } from "react"
 
-import { useDispatch } from "react-redux"
-import { addWeight, clearBar } from "../store/weightsListSlice"
-
-const MenuContainer = () => {
-	const dispatch = useDispatch()
-
+const MenuContainer = ({ setModalVisible }) => {
+	const [totalWeight, setTotalWeight] = useState(0)
     const weightsAvailable = [25, 20, 15, 10, 5, 2.5, 1.25]
+	
+	const dispatch = useDispatch()
+	const stateData = useSelector((state) => state.weights)
+	const { barWeight, weightsList } = stateData
 
-	const addWeightHandler = (weight) => {
-		dispatch(addWeight(weight))
-	}
+	const openModalHandler = () => setModalVisible(true)
+	const clearBarHandler = () => dispatch(clearBar())
+	const addWeightHandler = (weight) => dispatch(addWeight(weight))
+	const removeWeightHandler = (weight) => dispatch(removeWeight(weight))
 
-	const removeWeightHandler = (weight) => {
-		console.log('remove weight:', weight);
-	}
-
-	const clearBarHandler = () => {
-		dispatch(clearBar())
-	}
+	useEffect(() => {
+		let weightsSum = 0
+		weightsList.forEach(disc => weightsSum += disc)
+		weightsSum *= 2
+		weightsSum += barWeight
+		setTotalWeight(weightsSum)
+	}, [weightsList])
 
 	return (
 		<View style={styles.container}>
 			<View style={styles.leftSide}>
 				<View style={styles.leftSideTop}>
 					<View style={styles.leftSideTopContainer}>
-						<FontAwesome name="gear" size={34} color="white" />
-
+						<FontAwesome name="gear" size={34} color="white" onPress={openModalHandler} />
 						<TouchableOpacity style={styles.clearBarButton} onPress={clearBarHandler}>
 							<Text>Vaciar barra</Text>
 						</TouchableOpacity>
 					</View>
 				</View>
 				<View style={styles.leftSideBottom}>
-					<Text style={styles.totalText}>Total: ___ Kg</Text>
+					<Text style={styles.totalText}>Total: {totalWeight} Kg</Text>
 				</View>
 			</View>
 
@@ -84,7 +87,6 @@ const styles = StyleSheet.create({
     },
 
 	// LEFT SIDE
-
 	leftSide: {
 		flex: 1,
 		opacity: 0.8,
@@ -114,19 +116,20 @@ const styles = StyleSheet.create({
 	},
 
 	// RIGHT SIDE
-
 	rightSide: {
 		flex: 1,
 		opacity: 0.8,
 		alignItems: "flex-end",
-	},
-	rightSideTop: {
-		flex: 1,
-		padding: 10,
-		gap: 8,
-		paddingTop: 12
+		gap: 40
 	},
 
+	// TOP
+	rightSideTop: {
+		gap: 8,
+		flex: 1,
+		paddingHorizontal: 10,
+		justifyContent: 'flex-end',
+	},
 	removeWeightButton: {
 		backgroundColor: "red",
 		height: 42,
@@ -136,13 +139,12 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 	},
 
+	// BOTTOM
 	rightSideBottom: {
         gap: 8,
 		flex: 1,
-		padding: 10,
-		paddingTop: 36
+		paddingHorizontal: 10,
 	},
-
 	addWeightButton: {
 		backgroundColor: "green",
 		height: 42,
