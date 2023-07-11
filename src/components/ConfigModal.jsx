@@ -14,7 +14,10 @@ const ConfigModal = ({ modalVisible, setModalVisible }) => {
 	const [selectedWeightUnit, setSelectedWeightUnit] = useState(weightUnit)
 
 	const saveConfigHandler = () => {
-		console.log("OK")
+		dispatch(changeBarWeight(selectedBarWeight))
+		dispatch(changeDiscsType(selectedDiscsType))
+		dispatch(changeWeightUnit(selectedWeightUnit))
+
 		setModalVisible(!modalVisible)
 	}
 
@@ -25,7 +28,7 @@ const ConfigModal = ({ modalVisible, setModalVisible }) => {
 					<View style={styles.weightSelection}>
 						<Text style={styles.weightSelectionText}>Peso de la barra:</Text>
 						<View >
-							<TextInput style={styles.input} onChangeText={setSelectedBarWeight} value={'20'} placeholder="useless placeholder" keyboardType="numeric" />
+							<TextInput style={styles.input} onChangeText={setSelectedBarWeight} value={String(selectedBarWeight)} keyboardType="numeric" />
 						</View>
 					</View>
 					<View style={styles.pickerContainer}>
@@ -36,8 +39,8 @@ const ConfigModal = ({ modalVisible, setModalVisible }) => {
 					</View>
 					<View style={styles.pickerContainer}>
 						<Picker selectedValue={selectedWeightUnit} onValueChange={(itemValue, itemIndex) => setSelectedWeightUnit(itemValue)}>
-							<Picker.Item label="Unidades métricas" value="calibrated" />
-							<Picker.Item label="Unidades imperiales" value="metal" />
+							<Picker.Item label="Unidades métricas" value="metric" />
+							<Picker.Item label="Unidades imperiales" value="imperial" />
 						</Picker>
 					</View>
 

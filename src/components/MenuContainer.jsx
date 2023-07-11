@@ -21,7 +21,7 @@ const MenuContainer = ({ setModalVisible }) => {
 		let weightsSum = 0
 		weightsList.forEach(disc => weightsSum += disc)
 		weightsSum *= 2
-		weightsSum += barWeight
+		weightsSum += Number(barWeight)
 		setTotalWeight(weightsSum)
 	}, [weightsList])
 
