@@ -1,8 +1,8 @@
+import { useEffect, useState } from "react"
 import { FontAwesome } from "@expo/vector-icons"
 import { useDispatch, useSelector } from "react-redux"
 import { addWeight, removeWeight, clearBar } from "../store/weightsListSlice"
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native"
-import { useEffect, useState } from "react"
 
 const MenuContainer = ({ setModalVisible }) => {
 	const [totalWeight, setTotalWeight] = useState(0)

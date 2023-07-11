@@ -1,7 +1,14 @@
-import React from "react"
+import { useDispatch, useSelector } from "react-redux"
 import { StyleSheet, Text, View, Modal, Pressable } from "react-native"
+import { changeBarWeight, changeWeightUnit, changeDiscsType } from "../store/weightsListSlice"
 
 const ConfigModal = ({ modalVisible, setModalVisible }) => {
+    const dispatch = useDispatch()
+	const stateData = useSelector((state) => state.weights)
+	const { barWeight, weightUnit, discsType } = stateData
+
+    console.log(barWeight);
+
     const saveConfigHandler = () => {
         console.log('OK');
     }

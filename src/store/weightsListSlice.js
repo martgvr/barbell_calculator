@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
-    barWeight: 20,
     weightsList: [],
+    barWeight: 20,
     weightUnit: 'kg',
     discsType: 'calibrated',
 }
@@ -24,8 +24,17 @@ export const weightsListSlice = createSlice({
         clearBar: (state, action) => {
             state.weightsList = []
         },
+        changeBarWeight: (state, action) => {
+            state.barWeight = action.payload
+        },
+        changeWeightUnit: (state, action) => {
+            state.weightUnit = action.payload
+        },
+        changeDiscsType: (state, action) => {
+            state.discsType = action.payload
+        },
     }
 })
 
-export const { addWeight, removeWeight, clearBar } = weightsListSlice.actions
+export const { addWeight, removeWeight, clearBar, changeBarWeight, changeWeightUnit, changeDiscsType } = weightsListSlice.actions
 export default weightsListSlice.reducer
