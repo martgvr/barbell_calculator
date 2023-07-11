@@ -1,16 +1,24 @@
-import React from "react"
 import { FontAwesome } from "@expo/vector-icons"
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native"
 
-const MenuContainer = () => {
-    const weights = [25, 20, 15, 10, 5, 2.5, 1.25]
+import { useDispatch } from "react-redux"
+import { addWeight, clearBar } from "../store/weightsListSlice"
 
-	const weightHandler = (weight) => {
-		console.log('Peso: ', weight);
+const MenuContainer = () => {
+	const dispatch = useDispatch()
+
+    const weightsAvailable = [25, 20, 15, 10, 5, 2.5, 1.25]
+
+	const addWeightHandler = (weight) => {
+		dispatch(addWeight(weight))
+	}
+
+	const removeWeightHandler = (weight) => {
+		console.log('remove weight:', weight);
 	}
 
 	const clearBarHandler = () => {
-		console.log('Vaciar barra');
+		dispatch(clearBar())
 	}
 
 	return (
@@ -26,15 +34,15 @@ const MenuContainer = () => {
 					</View>
 				</View>
 				<View style={styles.leftSideBottom}>
-					<Text style={styles.totalText}>Total: ... Kg</Text>
+					<Text style={styles.totalText}>Total: ___ Kg</Text>
 				</View>
 			</View>
 
 			<View style={styles.rightSide}>
 				<View style={styles.rightSideTop}>
                     {
-                        weights.map(item => 
-                            <TouchableOpacity style={styles.removeWeightButton} key={item} onPress={() => weightHandler(item)}>
+                        weightsAvailable.map(item => 
+                            <TouchableOpacity style={styles.removeWeightButton} key={item} onPress={() => removeWeightHandler(item)}>
                                 <Text style={styles.weightButtonText}>{item}</Text>
                             </TouchableOpacity>)
                     }
@@ -42,8 +50,8 @@ const MenuContainer = () => {
 
 				<View style={styles.rightSideBottom}>
                     {
-                        weights.map(item => 
-                            <TouchableOpacity style={styles.addWeightButton} key={item} onPress={() => weightHandler(item)}>
+                        weightsAvailable.map(item => 
+                            <TouchableOpacity style={styles.addWeightButton} key={item} onPress={() => addWeightHandler(item)}>
                                 <Text style={styles.weightButtonText}>{item}</Text>
                             </TouchableOpacity>)
                     }

@@ -1,18 +1,15 @@
-import React from 'react'
-import { StyleSheet, View } from 'react-native'
 import Disc from './Disc'
+import { useSelector } from 'react-redux'
+import { StyleSheet, View } from 'react-native'
 
 const DiscsContainer = () => {
+  const discs = useSelector((state) => state.weights.weightsList)
+
   return (
     <View style={styles.discsContainer}>
-        <Disc weight={'1.25'} />
-        <Disc weight={'2.5'} />
-        <Disc weight={'5'} />
-        <Disc weight={'10'} />
-        <Disc weight={'15'} />
-        <Disc weight={'20'} />
-        <Disc weight={'25'} />
-        <Disc weight={'25'} />
+      {
+        discs.map((discWeight, index) => <Disc weight={discWeight} key={index} />)
+      }
     </View>
   )
 }
