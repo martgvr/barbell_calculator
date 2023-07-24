@@ -7,7 +7,6 @@
     "icon": "",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -19,12 +18,17 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.gslaker.barbellcalculator"
     },
     "web": {
       "favicon": ""
+    },
+    "extra": {
+      "eas": {
+        "projectId": "8d28e782-f5b3-43a3-ae81-c2a1a1172188"
+      }
     }
   }
 }

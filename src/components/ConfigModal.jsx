@@ -1,8 +1,8 @@
+import { useState } from "react"
 import { Picker } from "@react-native-picker/picker"
 import { useDispatch, useSelector } from "react-redux"
 import { StyleSheet, Text, View, Modal, Pressable, TextInput } from "react-native"
 import { changeBarWeight, changeWeightUnit, changeDiscsType } from "../store/weightsListSlice"
-import { useState } from "react"
 
 const ConfigModal = ({ modalVisible, setModalVisible }) => {
 	const dispatch = useDispatch()

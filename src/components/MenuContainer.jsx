@@ -3,6 +3,7 @@ import { FontAwesome } from "@expo/vector-icons"
 import { useDispatch, useSelector } from "react-redux"
 import { addWeight, removeWeight, clearBar } from "../store/weightsListSlice"
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native"
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
 const MenuContainer = ({ setModalVisible }) => {
 	const [totalWeight, setTotalWeight] = useState(0)
@@ -38,6 +39,7 @@ const MenuContainer = ({ setModalVisible }) => {
 				</View>
 				<View style={styles.leftSideBottom}>
 					<Text style={styles.totalText}>Total: {totalWeight} Kg</Text>
+					<MaterialCommunityIcons style={styles.editWeightButton} name="square-edit-outline" color='white' size={24} />
 				</View>
 			</View>
 
@@ -99,7 +101,10 @@ const styles = StyleSheet.create({
 	leftSideBottom: {
 		flex: 1,
 		padding: 10,
-		justifyContent: "flex-end",
+		flexDirection: 'row',
+		alignItems: 'flex-end',
+		justifyContent: "flex-start",
+		gap: 10,
 	},
 	clearBarButton: {
 		backgroundColor: '#ddd',
@@ -113,6 +118,13 @@ const styles = StyleSheet.create({
 		color: "white",
 		fontSize: 20,
 		textTransform: "uppercase",
+	},
+	editWeightButton: {
+		borderRadius: 10,
+		borderColor: '#555',
+		paddingVertical: 1,
+		paddingHorizontal: 8,
+		backgroundColor: '#333'
 	},
 
 	// RIGHT SIDE
