@@ -5,7 +5,7 @@ import { addWeight, removeWeight, clearBar } from "../store/weightsListSlice"
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native"
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
-const MenuContainer = ({ setModalVisible }) => {
+const MenuContainer = ({ setModalVisible, setManualInputVisible }) => {
 	const [totalWeight, setTotalWeight] = useState(0)
     const weightsAvailable = [25, 20, 15, 10, 5, 2.5, 1.25]
 	
@@ -17,6 +17,8 @@ const MenuContainer = ({ setModalVisible }) => {
 	const clearBarHandler = () => dispatch(clearBar())
 	const addWeightHandler = (weight) => dispatch(addWeight(weight))
 	const removeWeightHandler = (weight) => dispatch(removeWeight(weight))
+
+	const openManualInput = () => setManualInputVisible(true)
 
 	useEffect(() => {
 		let weightsSum = 0
@@ -39,7 +41,10 @@ const MenuContainer = ({ setModalVisible }) => {
 				</View>
 				<View style={styles.leftSideBottom}>
 					<Text style={styles.totalText}>Total: {totalWeight} Kg</Text>
-					<MaterialCommunityIcons style={styles.editWeightButton} name="square-edit-outline" color='white' size={24} />
+					
+					<TouchableOpacity onPress={openManualInput}>
+						<MaterialCommunityIcons style={styles.editWeightButton} name="square-edit-outline" color='white' size={24} />
+					</TouchableOpacity>
 				</View>
 			</View>
 

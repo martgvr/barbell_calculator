@@ -8,28 +8,31 @@ import Barbell from './src/components/Barbell'
 import MenuContainer from './src/components/MenuContainer';
 import DiscsContainer from './src/components/DiscsContainer';
 import ConfigModal from './src/components/ConfigModal'
+import ManualInputModal from './src/components/ManualInputModal'
 
 export default function App() {
-  const [modalVisible, setModalVisible] = useState(false)
+    const [modalVisible, setModalVisible] = useState(false)
+    const [manualInputVisible, setManualInputVisible] = useState(false)
 
-  return (
-    <Provider store={store}>
-      <View style={styles.container}>
-        <StatusBar style="light" />
-        <Barbell />
-        <DiscsContainer />
-        <MenuContainer setModalVisible={setModalVisible} />
-        <ConfigModal modalVisible={modalVisible} setModalVisible={setModalVisible} />
-      </View>
-    </Provider>
-  );
+    return (
+        <Provider store={store}>
+            <View style={styles.container}>
+                <StatusBar style="light" />
+                <Barbell />
+                <DiscsContainer />
+                <MenuContainer setModalVisible={setModalVisible} setManualInputVisible={setManualInputVisible} />
+                <ConfigModal modalVisible={modalVisible} setModalVisible={setModalVisible} />
+                <ManualInputModal manualInputVisible={manualInputVisible} setManualInputVisible={setManualInputVisible} />
+            </View>
+        </Provider>
+    );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#1c1c23',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+    container: {
+        flex: 1,
+        backgroundColor: '#1c1c23',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
 });
