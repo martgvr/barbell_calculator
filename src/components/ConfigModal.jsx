@@ -33,8 +33,8 @@ const ConfigModal = ({ modalVisible, setModalVisible }) => {
 					</View>
 					<View style={styles.pickerContainer}>
 						<Picker selectedValue={selectedDiscsType} onValueChange={(itemValue, itemIndex) => setSelectedDiscsType(itemValue)}>
-							<Picker.Item label="Discos calibrados" value="calibrated" />
-							<Picker.Item label="Discos metálicos" value="metal" />
+							<Picker.Item label="Discos calibrados (max 25 kg)" value="calibrated" />
+							<Picker.Item label="Discos regulares (max 20 kg)" value="regular" />
 						</Picker>
 					</View>
 					<View style={styles.pickerContainer}>

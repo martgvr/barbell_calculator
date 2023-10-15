@@ -3,18 +3,18 @@ import { FontAwesome } from "@expo/vector-icons"
 import { useDispatch, useSelector } from "react-redux"
 import { addWeight, removeWeight, clearBar } from "../store/weightsListSlice"
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native"
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
 
 const MenuContainer = ({ setModalVisible, setManualInputVisible }) => {
 	const [totalWeight, setTotalWeight] = useState(0)
-    const weightsAvailable = [25, 20, 15, 10, 5, 2.5, 1.25]
-	
+
 	const dispatch = useDispatch()
 	const stateData = useSelector((state) => state.weights)
-	const { barWeight, weightsList } = stateData
+	const { barWeight, weightsList, weightsAvailable, discsType } = stateData
 
-	const openModalHandler = () => setModalVisible(true)
 	const clearBarHandler = () => dispatch(clearBar())
+	const openModalHandler = () => setModalVisible(true)
+
 	const addWeightHandler = (weight) => dispatch(addWeight(weight))
 	const removeWeightHandler = (weight) => dispatch(removeWeight(weight))
 
@@ -22,7 +22,7 @@ const MenuContainer = ({ setModalVisible, setManualInputVisible }) => {
 
 	useEffect(() => {
 		let weightsSum = 0
-		weightsList.forEach(disc => weightsSum += disc)
+		weightsList.forEach((disc) => (weightsSum += disc))
 		weightsSum *= 2
 		weightsSum += Number(barWeight)
 		setTotalWeight(weightsSum)
@@ -37,34 +37,36 @@ const MenuContainer = ({ setModalVisible, setManualInputVisible }) => {
 						<TouchableOpacity style={styles.clearBarButton} onPress={clearBarHandler}>
 							<Text>Vaciar barra</Text>
 						</TouchableOpacity>
+
+						<View>
+							<Text style={styles.discTypeText}>{discsType == 'calibrated' ? 'Discos Calibrados' : 'Discos Regulares'}</Text>
+						</View>
 					</View>
 				</View>
 				<View style={styles.leftSideBottom}>
 					<Text style={styles.totalText}>Total: {totalWeight} Kg</Text>
-					
+
 					<TouchableOpacity onPress={openManualInput}>
-						<MaterialCommunityIcons style={styles.editWeightButton} name="square-edit-outline" color='white' size={24} />
+						<MaterialCommunityIcons style={styles.editWeightButton} name="square-edit-outline" color="white" size={24} />
 					</TouchableOpacity>
 				</View>
 			</View>
 
 			<View style={styles.rightSide}>
 				<View style={styles.rightSideTop}>
-                    {
-                        weightsAvailable.map(item => 
-                            <TouchableOpacity style={styles.removeWeightButton} key={item} onPress={() => removeWeightHandler(item)}>
-                                <Text style={styles.weightButtonText}>{item}</Text>
-                            </TouchableOpacity>)
-                    }
+					{weightsAvailable.map((item) => (
+						<TouchableOpacity style={styles.removeWeightButton} key={item} onPress={() => removeWeightHandler(item)}>
+							<Text style={styles.weightButtonText}>{item}</Text>
+						</TouchableOpacity>
+					))}
 				</View>
 
 				<View style={styles.rightSideBottom}>
-                    {
-                        weightsAvailable.map(item => 
-                            <TouchableOpacity style={styles.addWeightButton} key={item} onPress={() => addWeightHandler(item)}>
-                                <Text style={styles.weightButtonText}>{item}</Text>
-                            </TouchableOpacity>)
-                    }
+					{weightsAvailable.map((item) => (
+						<TouchableOpacity style={styles.addWeightButton} key={item} onPress={() => addWeightHandler(item)}>
+							<Text style={styles.weightButtonText}>{item}</Text>
+						</TouchableOpacity>
+					))}
 				</View>
 			</View>
 		</View>
@@ -83,15 +85,15 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 	},
 	leftSideTopContainer: {
-		flexDirection: 'row',
+		flexDirection: "row",
 		height: 35,
-		alignItems: 'center',
-		gap: 20
+		alignItems: "center",
+		gap: 20,
 	},
-    weightButtonText: {
-        color: 'white',
-        fontSize: 20
-    },
+	weightButtonText: {
+		color: "white",
+		fontSize: 20,
+	},
 
 	// LEFT SIDE
 	leftSide: {
@@ -101,23 +103,23 @@ const styles = StyleSheet.create({
 	leftSideTop: {
 		flex: 1,
 		padding: 10,
-		flexDirection: 'row',
+		flexDirection: "row",
 	},
 	leftSideBottom: {
 		flex: 1,
 		padding: 10,
-		flexDirection: 'row',
-		alignItems: 'flex-end',
+		flexDirection: "row",
+		alignItems: "flex-end",
 		justifyContent: "flex-start",
 		gap: 10,
 	},
 	clearBarButton: {
-		backgroundColor: '#ddd',
-		height: '100%',
-		alignItems: 'center',
+		backgroundColor: "#ddd",
+		height: "100%",
+		alignItems: "center",
 		paddingHorizontal: 12,
-		justifyContent: 'center',
-		borderRadius: 12
+		justifyContent: "center",
+		borderRadius: 12,
 	},
 	totalText: {
 		color: "white",
@@ -126,10 +128,10 @@ const styles = StyleSheet.create({
 	},
 	editWeightButton: {
 		borderRadius: 10,
-		borderColor: '#555',
+		borderColor: "#555",
 		paddingVertical: 1,
 		paddingHorizontal: 8,
-		backgroundColor: '#333'
+		backgroundColor: "#333",
 	},
 
 	// RIGHT SIDE
@@ -137,7 +139,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		opacity: 0.8,
 		alignItems: "flex-end",
-		gap: 40
+		gap: 40,
 	},
 
 	// TOP
@@ -145,7 +147,7 @@ const styles = StyleSheet.create({
 		gap: 8,
 		flex: 1,
 		paddingHorizontal: 10,
-		justifyContent: 'flex-end',
+		justifyContent: "flex-end",
 	},
 	removeWeightButton: {
 		backgroundColor: "red",
@@ -155,10 +157,13 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		justifyContent: "center",
 	},
+	discTypeText: {
+		color: '#fff'
+	},
 
 	// BOTTOM
 	rightSideBottom: {
-        gap: 8,
+		gap: 8,
 		flex: 1,
 		paddingHorizontal: 10,
 	},

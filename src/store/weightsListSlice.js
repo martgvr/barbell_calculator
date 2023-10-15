@@ -1,10 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
-    weightsList: [],
     barWeight: 20,
     weightUnit: 'kg',
     discsType: 'calibrated',
+    weightsList: [],
+    weightsAvailable: [25, 20, 15, 10, 5, 2.5, 1.25]
 }
 
 export const weightsListSlice = createSlice({
@@ -37,22 +38,27 @@ export const weightsListSlice = createSlice({
         changeDiscsType: (state, action) => {
             state.weightsList = []
             state.discsType = action.payload
+            
+            if (action.payload == 'calibrated') {
+                state.weightsAvailable = [25, 20, 15, 10, 5, 2.5, 1.25]
+            } else {
+                state.weightsAvailable = [20, 15, 10, 5, 2.5, 1.25]
+            }
         },
         manualInputCalc: (state, action) => {
             let inputNumber = parseInt(action.payload) / 2 - 10
-            let weightsAvailable = []
 
             if (state.discsType == 'calibrated') {
-                weightsAvailable = [25, 20, 15, 10, 5, 2.5, 1.25];
+                state.weightsAvailable = [25, 20, 15, 10, 5, 2.5, 1.25];
             } else {
-                weightsAvailable = [20, 15, 10, 5, 2.5, 1.25];
+                state.weightsAvailable = [20, 15, 10, 5, 2.5, 1.25];
             }
 
-            const weightsToPush = [];
+            const weightsToPush = []
 
-            weightsAvailable.sort((a, b) => b - a);
+            state.weightsAvailable.sort((a, b) => b - a);
 
-            for (let weight of weightsAvailable) {
+            for (let weight of state.weightsAvailable) {
                 while (inputNumber >= weight) {
                     weightsToPush.push(weight);
                     inputNumber -= weight;
