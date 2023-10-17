@@ -15,10 +15,9 @@ const MenuContainer = ({ setModalVisible, setManualInputVisible }) => {
 	const clearBarHandler = () => dispatch(clearBar())
 	const openModalHandler = () => setModalVisible(true)
 
+	const openManualInput = () => setManualInputVisible(true)
 	const addWeightHandler = (weight) => dispatch(addWeight(weight))
 	const removeWeightHandler = (weight) => dispatch(removeWeight(weight))
-
-	const openManualInput = () => setManualInputVisible(true)
 
 	useEffect(() => {
 		let weightsSum = 0
@@ -31,43 +30,53 @@ const MenuContainer = ({ setModalVisible, setManualInputVisible }) => {
 	return (
 		<View style={styles.container}>
 			<View style={styles.leftSide}>
+
 				<View style={styles.leftSideTop}>
 					<View style={styles.leftSideTopContainer}>
 						<FontAwesome name="gear" size={34} color="white" onPress={openModalHandler} />
 						<TouchableOpacity style={styles.clearBarButton} onPress={clearBarHandler}>
 							<Text>Vaciar barra</Text>
 						</TouchableOpacity>
-
 						<View>
 							<Text style={styles.discTypeText}>{discsType == 'calibrated' ? 'Discos Calibrados' : 'Discos Regulares'}</Text>
 						</View>
 					</View>
 				</View>
+
 				<View style={styles.leftSideBottom}>
 					<Text style={styles.totalText}>Total: {totalWeight} Kg</Text>
-
 					<TouchableOpacity onPress={openManualInput}>
 						<MaterialCommunityIcons style={styles.editWeightButton} name="square-edit-outline" color="white" size={24} />
 					</TouchableOpacity>
 				</View>
+				
 			</View>
 
 			<View style={styles.rightSide}>
+
 				<View style={styles.rightSideTop}>
-					{weightsAvailable.map((item) => (
-						<TouchableOpacity style={styles.removeWeightButton} key={item} onPress={() => removeWeightHandler(item)}>
-							<Text style={styles.weightButtonText}>{item}</Text>
-						</TouchableOpacity>
-					))}
+					<Text style={styles.removeWeightSymbol}>-</Text>
+					<View style={styles.rightSideWeights}>
+						{weightsAvailable.map((item) => (
+							<TouchableOpacity style={styles.removeWeightButton} key={item} onPress={() => removeWeightHandler(item)}>
+								<Text style={styles.weightButtonText}>{item}</Text>
+							</TouchableOpacity>
+						))}
+					</View>
 				</View>
 
 				<View style={styles.rightSideBottom}>
-					{weightsAvailable.map((item) => (
-						<TouchableOpacity style={styles.addWeightButton} key={item} onPress={() => addWeightHandler(item)}>
-							<Text style={styles.weightButtonText}>{item}</Text>
-						</TouchableOpacity>
-					))}
+					<Text style={styles.addWeightSymbol}>+</Text>
+
+					<View style={styles.rightSideWeights}>
+						{weightsAvailable.map((item) => (
+							<TouchableOpacity style={styles.addWeightButton} key={item} onPress={() => addWeightHandler(item)}>
+								<Text style={styles.weightButtonText}>{item}</Text>
+							</TouchableOpacity>
+						))}
+					</View>
 				</View>
+
 			</View>
 		</View>
 	)
@@ -136,18 +145,22 @@ const styles = StyleSheet.create({
 
 	// RIGHT SIDE
 	rightSide: {
+		gap: 40,
 		flex: 1,
 		opacity: 0.8,
 		alignItems: "flex-end",
-		gap: 40,
 	},
 
 	// TOP
 	rightSideTop: {
+		gap: 10,
+		marginTop: 46,
+		alignItems: 'center',
+		flexDirection: 'row',
+	},
+	rightSideWeights: {
 		gap: 8,
-		flex: 1,
 		paddingHorizontal: 10,
-		justifyContent: "flex-end",
 	},
 	removeWeightButton: {
 		backgroundColor: "red",
@@ -161,11 +174,20 @@ const styles = StyleSheet.create({
 		color: '#fff'
 	},
 
+	removeWeightSymbol: {
+		color: 'red',
+		fontSize: 40,
+	},
+	addWeightSymbol: {
+		color: 'green',
+		fontSize: 40,
+	},
+
 	// BOTTOM
 	rightSideBottom: {
 		gap: 8,
-		flex: 1,
-		paddingHorizontal: 10,
+		flexDirection: 'row',
+		alignItems: 'center',
 	},
 	addWeightButton: {
 		backgroundColor: "green",

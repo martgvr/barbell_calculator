@@ -2,8 +2,8 @@ import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
     barWeight: 20,
-    weightUnit: 'kg',
     discsType: 'calibrated',
+    weightUnit: 'kg',
     weightsList: [],
     weightsAvailable: [25, 20, 15, 10, 5, 2.5, 1.25]
 }
@@ -38,7 +38,7 @@ export const weightsListSlice = createSlice({
         changeDiscsType: (state, action) => {
             state.weightsList = []
             state.discsType = action.payload
-            
+
             if (action.payload == 'calibrated') {
                 state.weightsAvailable = [25, 20, 15, 10, 5, 2.5, 1.25]
             } else {
