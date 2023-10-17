@@ -25,12 +25,6 @@ const ConfigModal = ({ modalVisible, setModalVisible }) => {
 		<Modal animationType="none" transparent={true} visible={modalVisible} onRequestClose={() => setModalVisible(!modalVisible)}>
 			<View style={styles.centeredView}>
 				<View style={styles.modalView}>
-					<View style={styles.weightSelection}>
-						<Text style={styles.weightSelectionText}>Peso de la barra:</Text>
-						<View >
-							<TextInput style={styles.input} onChangeText={setSelectedBarWeight} value={String(selectedBarWeight)} keyboardType="numeric" />
-						</View>
-					</View>
 					<View style={styles.pickerContainer}>
 						<Picker selectedValue={selectedDiscsType} onValueChange={(itemValue, itemIndex) => setSelectedDiscsType(itemValue)}>
 							<Picker.Item label="Discos calibrados (max 25 kg)" value="calibrated" />
@@ -39,9 +33,16 @@ const ConfigModal = ({ modalVisible, setModalVisible }) => {
 					</View>
 					<View style={styles.pickerContainer}>
 						<Picker selectedValue={selectedWeightUnit} onValueChange={(itemValue, itemIndex) => setSelectedWeightUnit(itemValue)}>
-							<Picker.Item label="Unidades métricas" value="metric" />
-							<Picker.Item label="Unidades imperiales" value="imperial" />
+							<Picker.Item label="Unidades métricas" value="kg" />
+							<Picker.Item label="Unidades imperiales" value="lbs" />
 						</Picker>
+					</View>
+					<View style={styles.weightSelection}>
+						<Text style={styles.weightSelectionText}>Peso de la barra:</Text>
+						<View >
+							<TextInput style={styles.input} onChangeText={setSelectedBarWeight} value={String(selectedBarWeight)} keyboardType="numeric" />
+						</View>
+						<Text>{selectedWeightUnit}</Text>
 					</View>
 
 					<View style={styles.modalButtons}>
@@ -71,7 +72,8 @@ const styles = StyleSheet.create({
 		backgroundColor: "#eee",
 	},
 	weightSelection: {
-		width: 280,
+		gap: 2,
+		width: 290,
 		marginTop: 10,
 		alignItems: 'center',
 		flexDirection: 'row',
@@ -98,7 +100,7 @@ const styles = StyleSheet.create({
 	modalView: {
 		backgroundColor: "#ddd",
 		alignItems: "center",
-		padding: 15,
+		padding: 20,
 		width: "90%",
 		borderTopLeftRadius: 20,
 		borderTopRightRadius: 20,

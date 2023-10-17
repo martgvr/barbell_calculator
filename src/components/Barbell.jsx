@@ -11,15 +11,15 @@ const Barbell = () => {
 export default Barbell
 
 const styles = StyleSheet.create({
-	barbell: {
-		width: "95%",
-		height: 50,
-	},
 	barbellContainer: {
 		width: "100%",
 		height: "100%",
+		
 		alignItems: "flex-end",
 		justifyContent: "center",
-		paddingTop: 50,
+	},
+	barbell: {
+		width: "95%",
+		height: 50,
 	},
 })

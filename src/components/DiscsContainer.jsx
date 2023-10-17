@@ -20,12 +20,10 @@ const styles = StyleSheet.create({
 	discsContainer: {
 		gap: 1.4,
 		width: "64%",
-		height: "80%",
 		position: "absolute",
 		flexDirection: "row",
 		alignItems: "center",
 		alignSelf: "flex-start",
 		justifyContent: "flex-end",
-		paddingTop: 50,
 	},
 })
