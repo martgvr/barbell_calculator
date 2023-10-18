@@ -6,7 +6,7 @@ import { FontAwesome } from "@expo/vector-icons"
 import { addWeight, removeWeight, clearBar } from "../store/weightsListSlice"
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
 
-const MenuContainer = ({ setModalVisible, setManualInputVisible }) => {
+const MenuContainer = ({ setConfigModalVisible, setManualInputVisible, listModalVisible, setListModalVisible }) => {
 	const [totalWeight, setTotalWeight] = useState(0)
 
 	const dispatch = useDispatch()
@@ -14,7 +14,8 @@ const MenuContainer = ({ setModalVisible, setManualInputVisible }) => {
 	const { barWeight, weightsList, weightsAvailable, discsType, weightUnit } = stateData
 
 	const clearBarHandler = () => dispatch(clearBar())
-	const openModalHandler = () => setModalVisible(true)
+	const listModalHandler = () => setListModalVisible(true)
+	const configModalHandler = () => setConfigModalVisible(true)
 
 	const openManualInput = () => setManualInputVisible(true)
 	const addWeightHandler = (weight) => dispatch(addWeight(weight))
@@ -44,10 +45,14 @@ const MenuContainer = ({ setModalVisible, setManualInputVisible }) => {
 				</View>
 
 				<View style={styles.leftSideBottom}>
-					<FontAwesome name="gear" size={34} color="white" onPress={openModalHandler} />
+					<FontAwesome name="gear" size={34} color="white" onPress={configModalHandler} />
 
 					<TouchableOpacity style={styles.clearBarButton} onPress={clearBarHandler}>
 						<Text>Vaciar barra</Text>
+					</TouchableOpacity>
+					
+					<TouchableOpacity style={styles.clearBarButton} onPress={listModalHandler}>
+						<Text>Lista de discos</Text>
 					</TouchableOpacity>
 				</View>
 			</View>
@@ -129,7 +134,7 @@ const styles = StyleSheet.create({
 	},
 
 	leftSideBottom: {
-		gap: 20,
+		gap: 10,
 		padding: 10,
 		flexDirection: "row",
 	},

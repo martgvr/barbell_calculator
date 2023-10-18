@@ -1,17 +1,20 @@
 import { useState } from 'react'
-import store from './src/store/store'
 import { Provider } from 'react-redux'
 import { StatusBar } from 'expo-status-bar'
 import { StyleSheet, View } from 'react-native'
 
+import store from './src/store/store'
+
 import Barbell from './src/components/Barbell'
+import ListModal from './src/components/ListModal'
 import ConfigModal from './src/components/ConfigModal'
 import MenuContainer from './src/components/MenuContainer';
 import DiscsContainer from './src/components/DiscsContainer';
 import ManualInputModal from './src/components/ManualInputModal'
 
 export default function App() {
-    const [modalVisible, setModalVisible] = useState(false)
+    const [listModalVisible, setListModalVisible] = useState(false)
+    const [configModalVisible, setConfigModalVisible] = useState(false)
     const [manualInputVisible, setManualInputVisible] = useState(false)
 
     return (
@@ -20,8 +23,9 @@ export default function App() {
                 <StatusBar style="light" />
                 <Barbell />
                 <DiscsContainer />
-                <MenuContainer setModalVisible={setModalVisible} setManualInputVisible={setManualInputVisible} />
-                <ConfigModal modalVisible={modalVisible} setModalVisible={setModalVisible} />
+                <MenuContainer setConfigModalVisible={setConfigModalVisible} setManualInputVisible={setManualInputVisible} listModalVisible={listModalVisible} setListModalVisible={setListModalVisible} />
+                <ConfigModal configModalVisible={configModalVisible} setConfigModalVisible={setConfigModalVisible} />
+                <ListModal listModalVisible={listModalVisible} setListModalVisible={setListModalVisible} />
                 <ManualInputModal manualInputVisible={manualInputVisible} setManualInputVisible={setManualInputVisible} />
             </View>
         </Provider>

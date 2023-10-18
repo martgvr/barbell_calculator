@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { StyleSheet, Text, View, Modal, Pressable, TextInput } from "react-native"
+
 import { manualInputCalc } from "../store/weightsListSlice"
 
 const ManualInputModal = ({ manualInputVisible, setManualInputVisible }) => {

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { StyleSheet, Text, View, Modal, Pressable, TextInput } from "react-native"
 import { changeBarWeight, changeWeightUnit, changeDiscsType } from "../store/weightsListSlice"
 
-const ConfigModal = ({ modalVisible, setModalVisible }) => {
+const ConfigModal = ({ configModalVisible, setConfigModalVisible }) => {
 	const dispatch = useDispatch()
 	const stateData = useSelector((state) => state.weights)
 	const { barWeight, weightUnit, discsType } = stateData
@@ -18,11 +18,11 @@ const ConfigModal = ({ modalVisible, setModalVisible }) => {
 		dispatch(changeDiscsType(selectedDiscsType))
 		dispatch(changeWeightUnit(selectedWeightUnit))
 
-		setModalVisible(!modalVisible)
+		setConfigModalVisible(!configModalVisible)
 	}
 
 	return (
-		<Modal animationType="none" transparent={true} visible={modalVisible} onRequestClose={() => setModalVisible(!modalVisible)}>
+		<Modal animationType="none" transparent={true} visible={configModalVisible} onRequestClose={() => setConfigModalVisible(!configModalVisible)}>
 			<View style={styles.centeredView}>
 				<View style={styles.modalView}>
 					<View style={styles.pickerContainer}>
@@ -46,7 +46,7 @@ const ConfigModal = ({ modalVisible, setModalVisible }) => {
 					</View>
 
 					<View style={styles.modalButtons}>
-						<Pressable style={[styles.button, styles.buttonClose]} onPress={() => setModalVisible(!modalVisible)}>
+						<Pressable style={[styles.button, styles.buttonClose]} onPress={() => setConfigModalVisible(!configModalVisible)}>
 							<Text style={styles.textStyle}>Cancelar</Text>
 						</Pressable>
 						<Pressable style={[styles.button, styles.buttonDone]} onPress={saveConfigHandler}>
