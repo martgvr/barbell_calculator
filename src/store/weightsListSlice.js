@@ -68,12 +68,20 @@ export const weightsListSlice = createSlice({
             }
         },
         manualInputCalc: (state, action) => {
-            let inputNumber = parseInt(action.payload) / 2 - 10
+            let inputNumber = parseInt(action.payload) / 2 - (state.barWeight / 2)
 
             if (state.discsType == 'calibrated') {
-                state.weightsAvailable = [25, 20, 15, 10, 5, 2.5, 1.25];
+                if (state.weightUnit == 'kg') {
+                    state.weightsAvailable = [25, 20, 15, 10, 5, 2.5, 1.25]
+                } else {
+                    state.weightsAvailable = [55, 45, 35, 25, 10, 5, 2.5]
+                }
             } else {
-                state.weightsAvailable = [20, 15, 10, 5, 2.5, 1.25];
+                if (state.weightUnit == 'kg') {
+                    state.weightsAvailable = [20, 15, 10, 5, 2.5, 1.25]
+                } else {
+                    state.weightsAvailable = [45, 35, 25, 10, 5, 2.5]
+                }
             }
 
             const weightsToPush = []
