@@ -53,17 +53,17 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 	},
 	modalView: {
-		width: "90%",
-		padding: 20,
 		borderRadius: 20,
+		paddingVertical: 30,
+		paddingHorizontal: 60,
+		alignItems: 'center',
 		backgroundColor: "#ddd",
 	},
 	modalButtons: {
-		flexDirection: "row",
 		gap: 12,
-		width: 280,
+		marginTop: 30,
+		flexDirection: "row",
 		justifyContent: "space-between",
-		marginTop: 20,
 	},
 	button: {
 		padding: 10,
@@ -81,11 +81,11 @@ const styles = StyleSheet.create({
 		textAlign: "center",
 	},
 	title: {
-		fontSize: 16,
+		fontSize: 18,
 		fontWeight: 'bold',
-		marginBottom: 20,
+		marginBottom: 30,
 	},
 	discText: {
-		fontSize: 16,
+		fontSize: 18,
 	},
 })

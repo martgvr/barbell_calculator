@@ -8,9 +8,10 @@ import store from './src/store/store'
 import Barbell from './src/components/Barbell'
 import ListModal from './src/components/ListModal'
 import ConfigModal from './src/components/ConfigModal'
-import MenuContainer from './src/components/MenuContainer';
-import DiscsContainer from './src/components/DiscsContainer';
+import DiscsContainer from './src/components/DiscsContainer'
 import ManualInputModal from './src/components/ManualInputModal'
+
+import MainMenu from './src/components/MainMenu'
 
 export default function App() {
     const [listModalVisible, setListModalVisible] = useState(false)
@@ -23,10 +24,10 @@ export default function App() {
                 <StatusBar style="light" />
                 <Barbell />
                 <DiscsContainer />
-                <MenuContainer setConfigModalVisible={setConfigModalVisible} setManualInputVisible={setManualInputVisible} listModalVisible={listModalVisible} setListModalVisible={setListModalVisible} />
                 <ConfigModal configModalVisible={configModalVisible} setConfigModalVisible={setConfigModalVisible} />
                 <ListModal listModalVisible={listModalVisible} setListModalVisible={setListModalVisible} />
                 <ManualInputModal manualInputVisible={manualInputVisible} setManualInputVisible={setManualInputVisible} />
+                <MainMenu setConfigModalVisible={setConfigModalVisible} setManualInputVisible={setManualInputVisible} setListModalVisible={setListModalVisible} />
             </View>
         </Provider>
     );
