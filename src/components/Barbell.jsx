@@ -1,4 +1,4 @@
-import { StyleSheet, View, Image } from "react-native"
+import { StyleSheet, View, Image, Platform, StatusBar } from "react-native"
 
 const Barbell = () => {
 	return (
@@ -14,9 +14,11 @@ const styles = StyleSheet.create({
 	barbellContainer: {
 		width: "100%",
 		height: "100%",
-		
-		alignItems: "flex-end",
-		justifyContent: "center",
+		position: "absolute",
+		alignItems: 'flex-end',
+		justifyContent: 'center',
+		paddingBottom: 56,
+		paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
 	},
 	barbell: {
 		width: "95%",

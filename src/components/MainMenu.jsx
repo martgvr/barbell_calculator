@@ -5,17 +5,19 @@ import { Platform, StatusBar, SafeAreaView, StyleSheet, Text, View, TouchableOpa
 import { addWeight, removeWeight, clearBar } from "../store/weightsListSlice"
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
 
-const MainMenu = ({ setConfigModalVisible, setManualInputVisible, setListModalVisible }) => {
+const MainMenu = ({ setConfigModalVisible, setManualInputVisible, setListModalVisible, setInfoModalVisible }) => {
 	const [totalWeight, setTotalWeight] = useState(0)
-    
-    const dispatch = useDispatch()
+
+	const dispatch = useDispatch()
 	const stateData = useSelector((state) => state.weights)
 	const { barWeight, weightsList, weightsAvailable, discsType, weightUnit } = stateData
 
 	const clearBarHandler = () => dispatch(clearBar())
+	
 	const listModalHandler = () => setListModalVisible(true)
+	const infoModalHandler = () => setInfoModalVisible(true)
 	const configModalHandler = () => setConfigModalVisible(true)
-    const manualInputHandler = () => setManualInputVisible(true)
+	const manualInputHandler = () => setManualInputVisible(true)
 
 	const addWeightHandler = (weight) => dispatch(addWeight(weight))
 	const removeWeightHandler = (weight) => dispatch(removeWeight(weight))
@@ -31,19 +33,22 @@ const MainMenu = ({ setConfigModalVisible, setManualInputVisible, setListModalVi
 	return (
 		<SafeAreaView style={styles.container}>
 			<View style={styles.upperContainer}>
-
 				<View style={styles.upperLeftContainer}>
 					<View style={styles.totalContainer}>
-                        <Text style={styles.totalText}>Total</Text>
-                        <Text style={[styles.totalText, styles.textBold]}>{totalWeight} {weightUnit}</Text>
-                        <TouchableOpacity onPress={manualInputHandler}>
+						<Text style={styles.totalText}>Total</Text>
+						<Text style={[styles.totalText, styles.textBold]}>
+							{totalWeight} {weightUnit}
+						</Text>
+						<TouchableOpacity onPress={manualInputHandler}>
 							<MaterialCommunityIcons style={styles.manualInputButton} name="square-edit-outline" color="white" size={24} />
 						</TouchableOpacity>
-                    </View>
+					</View>
 
-                    <View>
-                    <Text style={styles.upperTextDetail}>{discsType == "calibrated" ? "Discos Calibrados" : "Discos Regulares"} / {weightUnit == "kg" ? "Unidades métricas" : "Unidades imperiales"}</Text>
-                    </View>
+					<View>
+						<Text style={styles.upperTextDetail}>
+							{discsType == "calibrated" ? "Discos Calibrados" : "Discos Regulares"} / {weightUnit == "kg" ? "Unidades métricas" : "Unidades imperiales"}
+						</Text>
+					</View>
 				</View>
 
 				<View style={styles.upperRightContainer}>
@@ -76,7 +81,7 @@ const MainMenu = ({ setConfigModalVisible, setManualInputVisible, setListModalVi
 			<View style={styles.lowerContainer}>
 				<View style={styles.lowerRightContainer}>
 					<MaterialCommunityIcons name="cog" color="white" size={34} onPress={configModalHandler} />
-					<MaterialCommunityIcons name="information-outline" color="white" size={34} onPress={configModalHandler} />
+					<MaterialCommunityIcons name="information-outline" color="white" size={34} onPress={infoModalHandler} />
 				</View>
 
 				<View style={styles.lowerRightContainer}>
@@ -108,68 +113,62 @@ const styles = StyleSheet.create({
 		flex: 1,
 		flexDirection: "row",
 	},
-    upperRightContainer: {
-        gap: 40,
+	upperRightContainer: {
+		gap: 20,
 		alignItems: "flex-end",
-        justifyContent: 'center'
-    },
-	upperLeftContainer: {
-        gap: 6,
-        flex: 1,
-        padding: 10,
+		justifyContent: "center",
 	},
-    totalContainer: {
-        gap: 10,
-        flexDirection: 'row',
-    },
-    totalText: {
-        color: 'white',
-        fontSize: 20,
-        fontWeight: 300,
-        textTransform: 'uppercase',
-    },
-    textBold: {
-        fontWeight: 'bold',
-    },
-    upperTextDetail: {
-        color: 'white'
-    },
-    manualInputButton: {
+	upperLeftContainer: {
+		gap: 6,
+		flex: 1,
+		padding: 10,
+	},
+	totalContainer: {
+		gap: 10,
+		flexDirection: "row",
+	},
+	totalText: {
+		color: "white",
+		fontSize: 20,
+		fontWeight: 300,
+		textTransform: "uppercase",
+	},
+	textBold: {
+		fontWeight: "bold",
+	},
+	upperTextDetail: {
+		color: "white",
+	},
+	manualInputButton: {
 		borderRadius: 10,
 		borderColor: "#555",
 		paddingVertical: 1,
 		paddingHorizontal: 8,
 		backgroundColor: "#333",
 	},
-	weightsContainer: {
-		flex: 1,
+	weightsTopContainer: {
+		gap: 10,
 		alignItems: "center",
 		flexDirection: "row",
-        justifyContent: 'space-between',
 	},
-    weightsTopContainer: {
-        gap: 10,
+	weightsBottomContainer: {
+		gap: 10,
 		alignItems: "center",
 		flexDirection: "row",
-    },
-    weightsBottomContainer: {
-		gap: 8,
-		flexDirection: "row",
-		alignItems: "center",
-    },
-    weightButtonText: {
+	},
+	weightButtonText: {
 		color: "white",
 		fontSize: 20,
 	},
-    rightSideWeights: {
+	rightSideWeights: {
 		gap: 8,
-        padding: 10,
+		padding: 10,
 	},
-    addWeightSymbol: {
-        color: "#3f6e24",
+	addWeightSymbol: {
+		color: "#3f6e24",
 		fontSize: 40,
 	},
-    addWeightButton: {
+	addWeightButton: {
 		width: 80,
 		height: 42,
 		borderRadius: 6,
@@ -178,11 +177,11 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 		backgroundColor: "#3f6e24",
 	},
-    removeWeightSymbol: {
+	removeWeightSymbol: {
 		color: "#bf2830",
 		fontSize: 40,
 	},
-    removeWeightButton: {
+	removeWeightButton: {
 		width: 80,
 		height: 42,
 		borderRadius: 6,

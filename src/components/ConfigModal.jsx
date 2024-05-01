@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux"
 import { StyleSheet, Text, View, Modal, Pressable, TextInput } from "react-native"
 import { changeBarWeight, changeWeightUnit, changeDiscsType } from "../store/weightsListSlice"
 
+import BouncyCheckbox from "react-native-bouncy-checkbox"
+
 const ConfigModal = ({ configModalVisible, setConfigModalVisible }) => {
 	const dispatch = useDispatch()
 	const stateData = useSelector((state) => state.weights)
@@ -13,6 +15,8 @@ const ConfigModal = ({ configModalVisible, setConfigModalVisible }) => {
 	const [selectedDiscsType, setSelectedDiscsType] = useState(discsType)
 	const [selectedWeightUnit, setSelectedWeightUnit] = useState(weightUnit)
 
+	const [isSelected, setSelection] = useState(false)
+
 	const saveConfigHandler = () => {
 		dispatch(changeBarWeight(selectedBarWeight))
 		dispatch(changeDiscsType(selectedDiscsType))
@@ -21,29 +25,53 @@ const ConfigModal = ({ configModalVisible, setConfigModalVisible }) => {
 		setConfigModalVisible(!configModalVisible)
 	}
 
+	const checkboxProps = {
+		size: 25,
+		fillColor: "black",
+		unFillColor: "#FFFFFF",
+		style: { marginTop: 10 },
+		innerIconStyle: { borderWidth: 2 },
+		iconStyle: { borderColor: "black" },
+		textStyle: { textDecorationLine: "none" },
+	}
+
 	return (
 		<Modal animationType="none" transparent={true} visible={configModalVisible} onRequestClose={() => setConfigModalVisible(!configModalVisible)}>
 			<View style={styles.centeredView}>
 				<View style={styles.modalView}>
-					<View style={styles.pickerContainer}>
-						<Picker selectedValue={selectedDiscsType} onValueChange={(itemValue, itemIndex) => setSelectedDiscsType(itemValue)}>
-							<Picker.Item label="Discos calibrados (max 25 kg)" value="calibrated" />
-							<Picker.Item label="Discos regulares (max 20 kg)" value="regular" />
-						</Picker>
-					</View>
 					<View style={styles.pickerContainer}>
 						<Picker selectedValue={selectedWeightUnit} onValueChange={(itemValue, itemIndex) => setSelectedWeightUnit(itemValue)}>
 							<Picker.Item label="Unidades métricas" value="kg" />
 							<Picker.Item label="Unidades imperiales" value="lbs" />
 						</Picker>
 					</View>
+
 					<View style={styles.weightSelection}>
 						<Text style={styles.weightSelectionText}>Peso de la barra:</Text>
-						<View >
+						<View>
 							<TextInput style={styles.input} onChangeText={setSelectedBarWeight} value={String(selectedBarWeight)} keyboardType="numeric" />
 						</View>
 						<Text>{selectedWeightUnit}</Text>
 					</View>
+
+					<View style={styles.checkboxContainer}>
+						<Text style={styles.checkboxContainerTitle}>Discos disponibles</Text>
+
+						<View style={styles.checkboxColumnsContainer}>
+							<View style={styles.checkboxColumn}>
+								<BouncyCheckbox {...checkboxProps} text={`25 ${selectedWeightUnit}`} onPress={(isChecked) => console.log(isChecked)} />
+								<BouncyCheckbox {...checkboxProps} text={`20 ${selectedWeightUnit}`} onPress={(isChecked) => console.log(isChecked)} />
+								<BouncyCheckbox {...checkboxProps} text={`15 ${selectedWeightUnit}`} onPress={(isChecked) => console.log(isChecked)} />
+								<BouncyCheckbox {...checkboxProps} text={`10 ${selectedWeightUnit}`} onPress={(isChecked) => console.log(isChecked)} />
+							</View>
+							<View style={styles.checkboxColumn}>
+								<BouncyCheckbox {...checkboxProps} text={`5 ${selectedWeightUnit}`} onPress={(isChecked) => console.log(isChecked)} />
+								<BouncyCheckbox {...checkboxProps} text={`2,5 ${selectedWeightUnit}`} onPress={(isChecked) => console.log(isChecked)} />
+								<BouncyCheckbox {...checkboxProps} text={`1.25 ${selectedWeightUnit}`} onPress={(isChecked) => console.log(isChecked)} />
+							</View>
+						</View>
+					</View>
+
 
 					<View style={styles.modalButtons}>
 						<Pressable style={[styles.button, styles.buttonClose]} onPress={() => setConfigModalVisible(!configModalVisible)}>
@@ -63,7 +91,7 @@ export default ConfigModal
 
 const styles = StyleSheet.create({
 	pickerContainer: {
-		width: 280,
+		width: 290,
 		height: 50,
 		marginTop: 10,
 		borderWidth: 1,
@@ -71,17 +99,35 @@ const styles = StyleSheet.create({
 		borderColor: "#aaa",
 		backgroundColor: "#eee",
 	},
+	checkboxContainer: {
+		width: 290,
+		padding: 10,
+		borderWidth: 1,
+		borderRadius: 10,
+		borderColor: "#aaa",
+		backgroundColor: "#eee",
+	},
+	checkboxContainerTitle: {
+		marginBottom: 4,
+	},
+	checkboxColumnsContainer: {
+		flexDirection: "row",
+	},
+	checkboxColumn: {
+		flex: 1,
+	},
 	weightSelection: {
 		gap: 2,
 		width: 290,
 		marginTop: 10,
-		alignItems: 'center',
-		flexDirection: 'row',
-		justifyContent: 'space-between',
+		marginBottom: 10,
+		alignItems: "center",
+		flexDirection: "row",
+		justifyContent: "space-between",
 	},
 	weightSelectionText: {
 		width: 70,
-		textAlign: 'right'
+		textAlign: "right",
 	},
 	input: {
 		width: 190,
@@ -90,7 +136,7 @@ const styles = StyleSheet.create({
 		borderRadius: 10,
 		borderColor: "#aaa",
 		backgroundColor: "#eee",
-		textAlign: 'center'
+		textAlign: "center",
 	},
 	centeredView: {
 		flex: 1,
