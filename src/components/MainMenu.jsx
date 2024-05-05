@@ -46,7 +46,7 @@ const MainMenu = ({ setConfigModalVisible, setManualInputVisible, setListModalVi
 
 					<View>
 						<Text style={styles.upperTextDetail}>
-							{discsType == "calibrated" ? "Discos Calibrados" : "Discos Regulares"} / {weightUnit == "kg" ? "Unidades métricas" : "Unidades imperiales"}
+							{weightUnit == "kg" ? "Unidades métricas" : "Unidades imperiales"}
 						</Text>
 					</View>
 				</View>

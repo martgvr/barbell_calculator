@@ -22,7 +22,7 @@ const ListModal = ({ listModalVisible, setListModalVisible }) => {
 		<Modal animationType="none" transparent={true} visible={listModalVisible} onRequestClose={() => setListModalVisible(!listModalVisible)}>
 			<View style={styles.centeredView}>
 				<View style={styles.modalView}>
-					<Text style={styles.title}>Lista de discos</Text>
+					<Text style={styles.title}>Lista de discos (por lado)</Text>
 
 					{
 						weightsList.length === 0 ? 

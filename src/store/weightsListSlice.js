@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
     barWeight: 20,
-    discsType: 'calibrated',
     weightUnit: 'kg',
     weightsList: [],
     weightsAvailable: [25, 20, 15, 10, 5, 2.5, 1.25]
@@ -33,60 +32,31 @@ export const weightsListSlice = createSlice({
         },
         changeWeightUnit: (state, action) => {
             state.weightsList = []
+        
+            if (action.payload === 'lbs' && state.weightUnit === 'kg') {
+                const conversionTable = { 25: 55, 20: 45, 15: 35, 10: 25, 5: 10, 2.5: 5, 1.25: 2.5 }
+                state.weightsAvailable = state.weightsAvailable.map(weight => conversionTable[weight])
+            }
+        
+            if (action.payload === 'kg' && state.weightUnit === 'lbs') {
+                const conversionTable = { 55: 25, 45: 20, 35: 15, 25: 10, 10: 5, 5: 2.5, 2.5: 1.25 }
+                state.weightsAvailable = state.weightsAvailable.map(weight => conversionTable[weight])
+            }
+        
             state.weightUnit = action.payload
-
-            if (action.payload == 'kg') {
-                if (state.discsType == 'calibrated') {
-                    state.weightsAvailable = [25, 20, 15, 10, 5, 2.5, 1.25]
-                } else {
-                    state.weightsAvailable = [20, 15, 10, 5, 2.5, 1.25]
-                }
-            } else {
-                if (state.discsType == 'calibrated') {
-                    state.weightsAvailable = [55, 45, 35, 25, 10, 5, 2.5]
-                } else {
-                    state.weightsAvailable = [45, 35, 25, 10, 5, 2.5]
-                }
-            }
-        },
-        changeDiscsType: (state, action) => {
-            state.weightsList = []
-            state.discsType = action.payload
-
-            if (action.payload == 'calibrated') {
-                if (state.weightUnit == 'kg') {
-                    state.weightsAvailable = [25, 20, 15, 10, 5, 2.5, 1.25]
-                } else {
-                    state.weightsAvailable = [55, 45, 35, 25, 10, 5, 2.5]
-                }
-            } else {
-                if (state.weightUnit == 'kg') {
-                    state.weightsAvailable = [20, 15, 10, 5, 2.5, 1.25]
-                } else {
-                    state.weightsAvailable = [45, 35, 25, 10, 5, 2.5]
-                }
-            }
         },
         manualInputCalc: (state, action) => {
             let inputNumber = parseInt(action.payload) / 2 - (state.barWeight / 2)
 
-            if (state.discsType == 'calibrated') {
-                if (state.weightUnit == 'kg') {
-                    state.weightsAvailable = [25, 20, 15, 10, 5, 2.5, 1.25]
-                } else {
-                    state.weightsAvailable = [55, 45, 35, 25, 10, 5, 2.5]
-                }
+            if (state.weightUnit == 'kg') {
+                state.weightsAvailable = [25, 20, 15, 10, 5, 2.5, 1.25]
             } else {
-                if (state.weightUnit == 'kg') {
-                    state.weightsAvailable = [20, 15, 10, 5, 2.5, 1.25]
-                } else {
-                    state.weightsAvailable = [45, 35, 25, 10, 5, 2.5]
-                }
+                state.weightsAvailable = [55, 45, 35, 25, 10, 5, 2.5]
             }
 
             const weightsToPush = []
 
-            state.weightsAvailable.sort((a, b) => b - a);
+            state.weightsAvailable.sort((a, b) => b - a)
 
             for (let weight of state.weightsAvailable) {
                 while (inputNumber >= weight) {
@@ -96,9 +66,19 @@ export const weightsListSlice = createSlice({
             }
 
             state.weightsList = weightsToPush.sort((a, b) => a - b)
-        }
+        },
+        manageWeightsAvailable: (state, action) => {
+            if (action.payload.state == true) {
+                state.weightsAvailable.push(action.payload.weight)
+            } else {
+                const indexToDelete = state.weightsAvailable.indexOf(action.payload.weight);
+                state.weightsAvailable.splice(indexToDelete, 1);
+            }
+
+            state.weightsAvailable.sort((a, b) => b - a)
+        },
     }
 })
 
-export const { addWeight, removeWeight, clearBar, changeBarWeight, changeWeightUnit, changeDiscsType, manualInputCalc } = weightsListSlice.actions
+export const { addWeight, removeWeight, clearBar, changeBarWeight, changeWeightUnit, manualInputCalc, manageWeightsAvailable } = weightsListSlice.actions
 export default weightsListSlice.reducer

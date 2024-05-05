@@ -2,26 +2,21 @@ import { useState } from "react"
 import { Picker } from "@react-native-picker/picker"
 import { useDispatch, useSelector } from "react-redux"
 import { StyleSheet, Text, View, Modal, Pressable, TextInput } from "react-native"
-import { changeBarWeight, changeWeightUnit, changeDiscsType } from "../store/weightsListSlice"
+import { changeBarWeight, changeWeightUnit, manageWeightsAvailable } from "../store/weightsListSlice"
 
 import BouncyCheckbox from "react-native-bouncy-checkbox"
 
 const ConfigModal = ({ configModalVisible, setConfigModalVisible }) => {
 	const dispatch = useDispatch()
 	const stateData = useSelector((state) => state.weights)
-	const { barWeight, weightUnit, discsType } = stateData
+	const { barWeight, weightUnit, weightsAvailable } = stateData
 
 	const [selectedBarWeight, setSelectedBarWeight] = useState(barWeight)
-	const [selectedDiscsType, setSelectedDiscsType] = useState(discsType)
 	const [selectedWeightUnit, setSelectedWeightUnit] = useState(weightUnit)
-
-	const [isSelected, setSelection] = useState(false)
 
 	const saveConfigHandler = () => {
 		dispatch(changeBarWeight(selectedBarWeight))
-		dispatch(changeDiscsType(selectedDiscsType))
 		dispatch(changeWeightUnit(selectedWeightUnit))
-
 		setConfigModalVisible(!configModalVisible)
 	}
 
@@ -58,17 +53,41 @@ const ConfigModal = ({ configModalVisible, setConfigModalVisible }) => {
 						<Text style={styles.checkboxContainerTitle}>Discos disponibles</Text>
 
 						<View style={styles.checkboxColumnsContainer}>
-							<View style={styles.checkboxColumn}>
-								<BouncyCheckbox {...checkboxProps} text={`25 ${selectedWeightUnit}`} onPress={(isChecked) => console.log(isChecked)} />
-								<BouncyCheckbox {...checkboxProps} text={`20 ${selectedWeightUnit}`} onPress={(isChecked) => console.log(isChecked)} />
-								<BouncyCheckbox {...checkboxProps} text={`15 ${selectedWeightUnit}`} onPress={(isChecked) => console.log(isChecked)} />
-								<BouncyCheckbox {...checkboxProps} text={`10 ${selectedWeightUnit}`} onPress={(isChecked) => console.log(isChecked)} />
-							</View>
-							<View style={styles.checkboxColumn}>
-								<BouncyCheckbox {...checkboxProps} text={`5 ${selectedWeightUnit}`} onPress={(isChecked) => console.log(isChecked)} />
-								<BouncyCheckbox {...checkboxProps} text={`2,5 ${selectedWeightUnit}`} onPress={(isChecked) => console.log(isChecked)} />
-								<BouncyCheckbox {...checkboxProps} text={`1.25 ${selectedWeightUnit}`} onPress={(isChecked) => console.log(isChecked)} />
-							</View>
+
+							{
+								weightUnit == 'kg' &&
+								<>
+									<View style={styles.checkboxColumn}>
+										{
+											[25, 20, 15, 10].map(weightToDisplay => <BouncyCheckbox {...checkboxProps} text={`${weightToDisplay} ${selectedWeightUnit}`} onPress={(isChecked) => dispatch(manageWeightsAvailable({ weight: weightToDisplay, state: isChecked }))} isChecked={weightsAvailable.find(weight => weight == weightToDisplay)} />)
+										}
+									</View>
+
+									<View style={styles.checkboxColumn}>
+										{
+											[5, 2.5, 1.25].map(weightToDisplay => <BouncyCheckbox {...checkboxProps} text={`${weightToDisplay} ${selectedWeightUnit}`} onPress={(isChecked) => dispatch(manageWeightsAvailable({ weight: weightToDisplay, state: isChecked }))} isChecked={weightsAvailable.find(weight => weight == weightToDisplay)} />)
+										}
+									</View>
+								</>
+							}
+
+							{
+								weightUnit == 'lbs' &&
+									<>
+										<View style={styles.checkboxColumn}>
+											{
+												[55, 45, 35, 25].map(weightToDisplay => <BouncyCheckbox {...checkboxProps} text={`${weightToDisplay} ${selectedWeightUnit}`} onPress={(isChecked) => dispatch(manageWeightsAvailable({ weight: weightToDisplay, state: isChecked }))} isChecked={weightsAvailable.find(weight => weight == weightToDisplay)} />)
+											}
+										</View>
+
+										<View style={styles.checkboxColumn}>
+											{
+												[10, 5, 2.5].map(weightToDisplay => <BouncyCheckbox {...checkboxProps} text={`${weightToDisplay} ${selectedWeightUnit}`} onPress={(isChecked) => dispatch(manageWeightsAvailable({ weight: weightToDisplay, state: isChecked }))} isChecked={weightsAvailable.find(weight => weight == weightToDisplay)} />)
+											}
+										</View>
+									</>
+							}
+
 						</View>
 					</View>
 
