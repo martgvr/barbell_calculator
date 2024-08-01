@@ -3,13 +3,15 @@ import { useSelector } from "react-redux"
 import { StyleSheet, View } from "react-native"
 
 const DiscsContainer = () => {
-	const discs = useSelector((state) => state.weights.weightsList)
+	const stateData = useSelector((state) => state.weights)
+	const { weightsList: discs, barCollar } = stateData
 
 	return (
 		<View style={styles.discsContainer}>
-			{discs.map((discWeight, index) => (
+			{ barCollar && <Disc weight={'collar'} key={1000} /> }
+			{ discs.map((discWeight, index) => (
 				<Disc weight={discWeight} key={index} />
-			))}
+			)) }
 		</View>
 	)
 }

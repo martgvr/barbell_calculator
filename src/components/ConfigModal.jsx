@@ -2,14 +2,14 @@ import { useState } from "react"
 import { Picker } from "@react-native-picker/picker"
 import { useDispatch, useSelector } from "react-redux"
 import { StyleSheet, Text, View, Modal, Pressable, TextInput } from "react-native"
-import { changeBarWeight, changeWeightUnit, manageWeightsAvailable } from "../store/weightsListSlice"
+import { changeBarWeight, changeWeightUnit, manageWeightsAvailable, changeCollarState } from "../store/weightsListSlice"
 
 import BouncyCheckbox from "react-native-bouncy-checkbox"
 
 const ConfigModal = ({ configModalVisible, setConfigModalVisible }) => {
 	const dispatch = useDispatch()
 	const stateData = useSelector((state) => state.weights)
-	const { barWeight, weightUnit, weightsAvailable } = stateData
+	const { barWeight, weightUnit, weightsAvailable, barCollar } = stateData
 
 	const [selectedBarWeight, setSelectedBarWeight] = useState(barWeight)
 	const [selectedWeightUnit, setSelectedWeightUnit] = useState(weightUnit)
@@ -44,7 +44,7 @@ const ConfigModal = ({ configModalVisible, setConfigModalVisible }) => {
 					<View style={styles.weightSelection}>
 						<Text style={styles.weightSelectionText}>Peso de la barra:</Text>
 						<View>
-							<TextInput style={styles.input} onChangeText={setSelectedBarWeight} value={String(selectedBarWeight)} keyboardType="numeric" />
+							<TextInput style={styles.input} onChangeText={setSelectedBarWeight} value={String(selectedBarWeight)} keyboardType="numeric" maxLength={2} />
 						</View>
 						<Text>{selectedWeightUnit}</Text>
 					</View>
@@ -67,6 +67,8 @@ const ConfigModal = ({ configModalVisible, setConfigModalVisible }) => {
 										{
 											[5, 2.5, 1.25].map(weightToDisplay => <BouncyCheckbox {...checkboxProps} text={`${weightToDisplay} ${selectedWeightUnit}`} onPress={(isChecked) => dispatch(manageWeightsAvailable({ weight: weightToDisplay, state: isChecked }))} isChecked={weightsAvailable.find(weight => weight == weightToDisplay)} />)
 										}
+
+										<BouncyCheckbox {...checkboxProps} text={`Cierres metálicos`} onPress={(isChecked) => dispatch(changeCollarState(!barCollar))} isChecked={barCollar} />
 									</View>
 								</>
 							}
@@ -84,6 +86,8 @@ const ConfigModal = ({ configModalVisible, setConfigModalVisible }) => {
 											{
 												[10, 5, 2.5].map(weightToDisplay => <BouncyCheckbox {...checkboxProps} text={`${weightToDisplay} ${selectedWeightUnit}`} onPress={(isChecked) => dispatch(manageWeightsAvailable({ weight: weightToDisplay, state: isChecked }))} isChecked={weightsAvailable.find(weight => weight == weightToDisplay)} />)
 											}
+
+											<BouncyCheckbox {...checkboxProps} text={`Cierres metálicos`} onPress={(isChecked) => dispatch(changeCollarState(!barCollar))} isChecked={barCollar} />
 										</View>
 									</>
 							}

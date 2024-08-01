@@ -8,10 +8,10 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 const MainMenu = ({ setConfigModalVisible, setManualInputVisible, setListModalVisible, setInfoModalVisible }) => {
 	const [totalWeight, setTotalWeight] = useState(0)
 
-	const dispatch = useDispatch()
 	const stateData = useSelector((state) => state.weights)
-	const { barWeight, weightsList, weightsAvailable, discsType, weightUnit } = stateData
-
+	const { barWeight, weightsList, weightsAvailable, discsType, weightUnit, barCollar } = stateData
+	
+	const dispatch = useDispatch()
 	const clearBarHandler = () => dispatch(clearBar())
 	
 	const listModalHandler = () => setListModalVisible(true)
@@ -27,6 +27,7 @@ const MainMenu = ({ setConfigModalVisible, setManualInputVisible, setListModalVi
 		weightsList.forEach((disc) => (weightsSum += disc))
 		weightsSum *= 2
 		weightsSum += Number(barWeight)
+		
 		setTotalWeight(weightsSum)
 	}, [weightsList])
 
@@ -37,7 +38,7 @@ const MainMenu = ({ setConfigModalVisible, setManualInputVisible, setListModalVi
 					<View style={styles.totalContainer}>
 						<Text style={styles.totalText}>Total</Text>
 						<Text style={[styles.totalText, styles.textBold]}>
-							{totalWeight} {weightUnit}
+							{barCollar ? totalWeight + 5 : totalWeight} {weightUnit}
 						</Text>
 						<TouchableOpacity onPress={manualInputHandler}>
 							<MaterialCommunityIcons style={styles.manualInputButton} name="square-edit-outline" color="white" size={24} />

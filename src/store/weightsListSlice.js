@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
     barWeight: 20,
+    barCollar: true,
     weightUnit: 'kg',
     weightsList: [],
     weightsAvailable: [25, 20, 15, 10, 5, 2.5, 1.25]
@@ -48,20 +49,14 @@ export const weightsListSlice = createSlice({
         manualInputCalc: (state, action) => {
             let inputNumber = parseInt(action.payload) / 2 - (state.barWeight / 2)
 
-            if (state.weightUnit == 'kg') {
-                state.weightsAvailable = [25, 20, 15, 10, 5, 2.5, 1.25]
-            } else {
-                state.weightsAvailable = [55, 45, 35, 25, 10, 5, 2.5]
-            }
-
             const weightsToPush = []
 
             state.weightsAvailable.sort((a, b) => b - a)
 
             for (let weight of state.weightsAvailable) {
                 while (inputNumber >= weight) {
-                    weightsToPush.push(weight);
-                    inputNumber -= weight;
+                    weightsToPush.push(weight)
+                    inputNumber -= weight
                 }
             }
 
@@ -77,8 +72,11 @@ export const weightsListSlice = createSlice({
 
             state.weightsAvailable.sort((a, b) => b - a)
         },
+        changeCollarState: (state, action) => {
+            state.barCollar = action.payload
+        }
     }
 })
 
-export const { addWeight, removeWeight, clearBar, changeBarWeight, changeWeightUnit, manualInputCalc, manageWeightsAvailable } = weightsListSlice.actions
+export const { addWeight, removeWeight, clearBar, changeBarWeight, changeWeightUnit, manualInputCalc, manageWeightsAvailable, changeCollarState } = weightsListSlice.actions
 export default weightsListSlice.reducer

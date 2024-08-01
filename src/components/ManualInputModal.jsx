@@ -1,8 +1,7 @@
 import { useState } from "react"
 import { useDispatch } from "react-redux"
-import { StyleSheet, Text, View, Modal, Pressable, TextInput } from "react-native"
-
 import { manualInputCalc } from "../store/weightsListSlice"
+import { StyleSheet, Text, View, Modal, Pressable, TextInput } from "react-native"
 
 const ManualInputModal = ({ manualInputVisible, setManualInputVisible }) => {
 	const dispatch = useDispatch()
@@ -19,7 +18,7 @@ const ManualInputModal = ({ manualInputVisible, setManualInputVisible }) => {
 				<View style={styles.modalView}>
 					<Text style={styles.modalTitle}>Ingrese el peso de forma manual</Text>
 
-					<TextInput style={styles.input} onChangeText={setWeightToCalc} keyboardType="numeric" placeholder="0" />
+					<TextInput style={styles.input} onChangeText={setWeightToCalc} keyboardType="numeric" placeholder="0" maxLength={3} />
 
 					<View style={styles.modalButtons}>
 						<Pressable style={[styles.button, styles.buttonClose]} onPress={() => setManualInputVisible(false)}>
