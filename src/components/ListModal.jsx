@@ -77,12 +77,12 @@ const styles = StyleSheet.create({
 	},
 	buttonText: {
 		color: "white",
-		fontWeight: "bold",
+		// fontWeight: "bold",
 		textAlign: "center",
 	},
 	title: {
 		fontSize: 18,
-		fontWeight: 'bold',
+		// fontWeight: 'bold',
 		marginBottom: 30,
 	},
 	discText: {

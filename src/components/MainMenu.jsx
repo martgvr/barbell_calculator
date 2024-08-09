@@ -131,11 +131,11 @@ const styles = StyleSheet.create({
 	totalText: {
 		color: "white",
 		fontSize: 20,
-		fontWeight: 300,
+		// fontWeight: 300,
 		textTransform: "uppercase",
 	},
 	textBold: {
-		fontWeight: "bold",
+		// fontWeight: "bold",
 	},
 	upperTextDetail: {
 		color: "white",

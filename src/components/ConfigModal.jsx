@@ -59,13 +59,13 @@ const ConfigModal = ({ configModalVisible, setConfigModalVisible }) => {
 								<>
 									<View style={styles.checkboxColumn}>
 										{
-											[25, 20, 15, 10].map(weightToDisplay => <BouncyCheckbox {...checkboxProps} text={`${weightToDisplay} ${selectedWeightUnit}`} onPress={(isChecked) => dispatch(manageWeightsAvailable({ weight: weightToDisplay, state: isChecked }))} isChecked={weightsAvailable.find(weight => weight == weightToDisplay)} />)
+											[25, 20, 15, 10].map((weightToDisplay, index) => <BouncyCheckbox key={index} {...checkboxProps} text={`${weightToDisplay} ${selectedWeightUnit}`} onPress={(isChecked) => dispatch(manageWeightsAvailable({ weight: weightToDisplay, state: isChecked }))} isChecked={weightsAvailable.find(weight => weight == weightToDisplay)} />)
 										}
 									</View>
 
 									<View style={styles.checkboxColumn}>
 										{
-											[5, 2.5, 1.25].map(weightToDisplay => <BouncyCheckbox {...checkboxProps} text={`${weightToDisplay} ${selectedWeightUnit}`} onPress={(isChecked) => dispatch(manageWeightsAvailable({ weight: weightToDisplay, state: isChecked }))} isChecked={weightsAvailable.find(weight => weight == weightToDisplay)} />)
+											[5, 2.5, 1.25].map((weightToDisplay, index) => <BouncyCheckbox key={index} {...checkboxProps} text={`${weightToDisplay} ${selectedWeightUnit}`} onPress={(isChecked) => dispatch(manageWeightsAvailable({ weight: weightToDisplay, state: isChecked }))} isChecked={weightsAvailable.find(weight => weight == weightToDisplay)} />)
 										}
 
 										<BouncyCheckbox {...checkboxProps} text={`Cierres metálicos`} onPress={(isChecked) => dispatch(changeCollarState(!barCollar))} isChecked={barCollar} />
@@ -78,13 +78,13 @@ const ConfigModal = ({ configModalVisible, setConfigModalVisible }) => {
 									<>
 										<View style={styles.checkboxColumn}>
 											{
-												[55, 45, 35, 25].map(weightToDisplay => <BouncyCheckbox {...checkboxProps} text={`${weightToDisplay} ${selectedWeightUnit}`} onPress={(isChecked) => dispatch(manageWeightsAvailable({ weight: weightToDisplay, state: isChecked }))} isChecked={weightsAvailable.find(weight => weight == weightToDisplay)} />)
+												[55, 45, 35, 25].map((weightToDisplay, index) => <BouncyCheckbox key={index} {...checkboxProps} text={`${weightToDisplay} ${selectedWeightUnit}`} onPress={(isChecked) => dispatch(manageWeightsAvailable({ weight: weightToDisplay, state: isChecked }))} isChecked={weightsAvailable.find(weight => weight == weightToDisplay)} />)
 											}
 										</View>
 
 										<View style={styles.checkboxColumn}>
 											{
-												[10, 5, 2.5].map(weightToDisplay => <BouncyCheckbox {...checkboxProps} text={`${weightToDisplay} ${selectedWeightUnit}`} onPress={(isChecked) => dispatch(manageWeightsAvailable({ weight: weightToDisplay, state: isChecked }))} isChecked={weightsAvailable.find(weight => weight == weightToDisplay)} />)
+												[10, 5, 2.5].map((weightToDisplay, index) => <BouncyCheckbox key={index} {...checkboxProps} text={`${weightToDisplay} ${selectedWeightUnit}`} onPress={(isChecked) => dispatch(manageWeightsAvailable({ weight: weightToDisplay, state: isChecked }))} isChecked={weightsAvailable.find(weight => weight == weightToDisplay)} />)
 											}
 
 											<BouncyCheckbox {...checkboxProps} text={`Cierres metálicos`} onPress={(isChecked) => dispatch(changeCollarState(!barCollar))} isChecked={barCollar} />
@@ -196,7 +196,7 @@ const styles = StyleSheet.create({
 	},
 	textStyle: {
 		color: "white",
-		fontWeight: "bold",
+		// fontWeight: "bold",
 		textAlign: "center",
 	},
 	modalText: {

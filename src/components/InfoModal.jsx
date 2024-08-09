@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
 	title: {
 		fontSize: 16,
 		marginBottom: 4,
-		fontWeight: "bold",
+		// fontWeight: "bold",
 	},
 	button: {
 		padding: 10,
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
 	},
 	buttonText: {
 		color: "white",
-		fontWeight: "bold",
+		// fontWeight: "bold",
 		textAlign: "center",
 	},
     logo: {

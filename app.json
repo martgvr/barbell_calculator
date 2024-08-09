@@ -17,11 +17,12 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.barbell.calculator",
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#ffffff"
-      },
-      "package": "com.gslaker.barbellcalculator"
+      }
     },
     "web": {
       "favicon": ""
