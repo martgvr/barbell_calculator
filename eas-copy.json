@@ -9,7 +9,8 @@
     },
     "preview": {
       "android": {
-        "buildType": "aab"
+        "buildType": "aab",
+        "autoIncrement": true
       }
     },
     "production": {}

@@ -1,6 +1,6 @@
-import { useState } from 'react'
 import { Provider } from 'react-redux'
 import { StatusBar } from 'expo-status-bar'
+import { useEffect, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 
 import store from './src/store/store'
@@ -14,12 +14,21 @@ import ManualInputModal from './src/components/ManualInputModal'
 import MainMenu from './src/components/MainMenu'
 import InfoModal from './src/components/InfoModal'
 
+import * as SQLite from 'expo-sqlite'
+import { appConfigDB } from './src/database/sqlite.config'
+
+const db = SQLite.openDatabaseSync("./mydb.db")
+
 export default function App() {
     const [listModalVisible, setListModalVisible] = useState(false)
     const [infoModalVisible, setInfoModalVisible] = useState(false)
     const [configModalVisible, setConfigModalVisible] = useState(false)
     const [manualInputVisible, setManualInputVisible] = useState(false)
 
+    useEffect(() => {
+        // appConfigDB.init()
+        // appConfigDB.getAll()
+    }, [])
 
     return (
         <Provider store={store}>
